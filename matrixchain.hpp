@@ -1,14 +1,25 @@
+// TODO: 
+
 #include "matrix.hpp"
+#include <vector>
 
 class MatrixChain {
     public:
-    int size; 
-    Matrix* matrices[];
+    std::vector<Matrix> chain;
+    int size;
 
-    MatrixChain(int m_size, Matrix* mat[]) {
-        size = m_size;
-        for (int i=0; i<size; i++) {
-            matrices[i] = mat[i];
-        }
+    MatrixChain() {
+        size = chain.size();
     }
+
+    MatrixChain(std::vector<Matrix> m_chain){
+        chain = m_chain;
+        size = chain.size();
+    }
+
+    MatrixChain(const MatrixChain& m_chain){
+        chain = m_chain.chain;
+        size = chain.size();
+    }
+
 };
