@@ -22,4 +22,20 @@ class MatrixChain {
         size = chain.size();
     }
 
+    friend std::ostream& operator<<(
+        std::ostream& os, const MatrixChain& m_chain
+        );
 };
+
+std::ostream& operator<<(std::ostream& os, const MatrixChain& m_chain) {
+    // implement this using for loop   
+    os << "{";
+    for (int i=0; i<m_chain.chain.size(); ++i){
+        os << m_chain.chain[i];
+        if (i != m_chain.chain.size() - 1){
+            os << ",";
+        }
+    }
+        os << "}\n";
+        return os;
+}
