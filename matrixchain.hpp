@@ -2,7 +2,9 @@
 
 #include "matrix.hpp"
 #include <vector>
-
+#include <stdio.h>
+#include <stdlib.h>
+#include<time.h>
 class MatrixChain {
     public:
     std::vector<Matrix> chain;
@@ -22,9 +24,12 @@ class MatrixChain {
         size = chain.size();
     }
 
+    
     friend std::ostream& operator<<(
         std::ostream& os, const MatrixChain& m_chain
         );
+
+    
 };
 
 std::ostream& operator<<(std::ostream& os, const MatrixChain& m_chain) {
@@ -39,3 +44,15 @@ std::ostream& operator<<(std::ostream& os, const MatrixChain& m_chain) {
         os << "}\n";
         return os;
 }
+
+MatrixChain Generate(int n){
+        srand(time(0));
+        std::vector<Matrix> lst;
+        lst.push_back(Matrix(rand(), rand()));
+        for (int i = 0; i< n-1; i++){
+            lst.push_back(Matrix(lst.back().columns, rand()));
+        }
+        
+        return MatrixChain(lst);
+
+    }
