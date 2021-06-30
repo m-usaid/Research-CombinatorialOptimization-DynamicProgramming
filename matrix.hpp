@@ -36,6 +36,8 @@ class Matrix {
         }
     }
 
+   
+
     // multiply two matrices and output another matrix
     Matrix mat_mul(Matrix A) {
         Matrix out = Matrix(this->rows, A.columns);  

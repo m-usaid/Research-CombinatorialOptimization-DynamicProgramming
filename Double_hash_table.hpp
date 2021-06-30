@@ -1,5 +1,6 @@
 // Author: Christopher Mitcheltree
 // Date: Fall 2013
+#include <iostream>
 
 #ifndef DOUBLE_HASH_TABLE_H
 #define DOUBLE_HASH_TABLE_H
