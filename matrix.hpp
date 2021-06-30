@@ -1,6 +1,6 @@
 // Changelog 30/06/21:  - removed unnecessary pointer usage
 //                      - added copy constructor 
-// TODO:    - discuss matmul to fix return scene 
+// TODO:    
 
 #include <iostream>
 
@@ -34,16 +34,12 @@ class Matrix {
         else {
             return false;
         }
-    } 
+    }
 
     // multiply two matrices and output another matrix
     Matrix mat_mul(Matrix A) {
-        if (this->can_multiply(A)) {
-            Matrix out = Matrix(this->rows, A.columns);  
-            return out;          
-        }
-        std::cout << "matrices cannot be multiplied due to " << 
-        "incompatible dimensions."; 
+        Matrix out = Matrix(this->rows, A.columns);  
+        return out;          
     }
 
     // operator overloading 
