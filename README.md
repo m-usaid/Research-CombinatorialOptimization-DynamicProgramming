@@ -11,3 +11,11 @@
     - [x] create default & copy constructors 
     - [ ] overload ostream and equality 
     - [ ] operator overloading to test for equality 
+
+- Create DAG 
+
+- Create a class for problem 
+
+- Read procedure of optimization, make notes, discuss 
+
+- Go over implementation of DP solution to MCM 
