@@ -2,3 +2,10 @@
 *.exe
 /.vscode 
 *.json
+*.aux
+*.hpp.gch
+*.fdb_latexmk
+*fls
+*log
+*synctex.gz
+*.pdf
