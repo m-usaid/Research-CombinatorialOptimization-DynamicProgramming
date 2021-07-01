@@ -1,7 +1,3 @@
-// Changelog 30/06/21:  - removed unnecessary pointer usage
-//                      - added copy constructor 
-// TODO:    
-
 #include <iostream>
 
 class Matrix {    
@@ -36,8 +32,6 @@ class Matrix {
         }
     }
 
-   
-
     // multiply two matrices and output another matrix
     Matrix mat_mul(Matrix A) {
         Matrix out = Matrix(this->rows, A.columns);  
@@ -46,9 +40,24 @@ class Matrix {
 
     // operator overloading 
     friend std::ostream& operator<<(std::ostream& os, const Matrix& M);
+    friend bool operator==(Matrix& m1, Matrix& m2);
+
+    Matrix& operator=(const Matrix& m) {
+        this->rows = m.rows;
+       this-> columns = m.columns;
+       return *this;
+    }
+
 };
 
 std::ostream& operator<<(std::ostream& os, const Matrix& M){
     os << "(" << M.rows << ", " << M.columns << ")";
     return os;
 }; 
+
+bool operator==(Matrix& m1, Matrix& m2) {
+    if ((m1.rows == m2.rows) && (m1.columns == m2.columns)){
+        return true;
+    }
+    return false;
+}
