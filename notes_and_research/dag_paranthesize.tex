@@ -68,10 +68,10 @@ Acyclic Graph}
             \node[draw, rectangle] (20) at (-1.5,-9.5) {$S(2,2)$};
             \node[draw, rectangle] (21) at (0.5,-9.5) {$S(3,3)$};
 
-            \node[draw, rectangle] (22) at (1.5,-8.25) {$S(1,1)$};
-            \node[draw, rectangle] (23) at (3.5,-8.25) {$S(2,2)$};
-            \node[draw, rectangle] (24) at (5.5,-8.25) {$S(2,2)$};
-            \node[draw, rectangle] (25) at (7.5,-8.25) {$S(3,3)$};
+            \node[draw, rectangle] (22) at (1.5,-8.25) {$S(2,2)$};
+            \node[draw, rectangle] (23) at (3.5,-8.25) {$S(3,3)$};
+            \node[draw, rectangle] (24) at (5.5,-8.25) {$S(3,3)$};
+            \node[draw, rectangle] (25) at (7.5,-8.25) {$S(4,4)$};
             % \node[draw, rec]
 
             % \path[->] (1) edge node[midway, above]{1} (2);
@@ -119,6 +119,14 @@ Acyclic Graph}
             anchor=center, pos=0.5] {2} (20);
             \path[->] (12) edge node[fill=white,
             anchor=center, pos=0.5] {2} (21);
+            \path[->] (15) edge node[fill=white,
+            anchor=center, pos=0.5] {2} (22);
+            \path[->] (15) edge node[fill=white,
+            anchor=center, pos=0.5] {2} (23);
+            \path[->] (16) edge node[fill=white,
+            anchor=center, pos=0.5] {2} (24);
+            \path[->] (16) edge node[fill=white,
+            anchor=center, pos=0.5] {2} (25);
             % \path[->] (3) edge node[fill=white,
             % anchor=center, pos=0.5] {1} (8);
         \end{tikzpicture}
