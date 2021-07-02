@@ -15,7 +15,9 @@
 
 - Create DAG 
 
-- Create a class for problem 
+- Create a class for problem - DONE
+- Fix Overload == for subproblem
+- Add subproblem to DAG;gi
 
 - Read procedure of optimization, make notes, discuss 
     - [ ] create a latex file showing dag and its representation of 
