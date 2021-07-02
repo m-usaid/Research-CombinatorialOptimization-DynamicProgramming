@@ -1,24 +1,21 @@
 \documentclass[12pt, a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{geometry}
+\geometry{margin=1.25in}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta}
 \usepackage{amsthm}
+\usepackage{hyperref}
 \setlength{\parskip}{1 em}
 \setlength{\parindent}{0 em}
 \theoremstyle{remark}
 \newtheorem*{example}{Example}
 
-\title{\Large Representation of All Possible Parenthesizations of Matrix-Chain Multiplication in a Directed
-Acyclic Graph}
-\date{}
-\author{}
 \begin{document}
-    % \maketitle
     \textit{\large Representation of All Possible Parenthesizations of Matrix-Chain Multiplication in a Directed
-    Acyclic Graphs} 
+    Acyclic Graph} 
 
     Firstly, let's revise some notation. We define $G$ as a directed acyclic graph (DAG) that will 
     represent all possible parenthesizations for $P(i,j)$ for each subproblem $S(i,j)$ where 
@@ -30,10 +27,38 @@ Acyclic Graph}
 
     For each vertex $S(i,j)$, we define the set $P_G(i,j)$ of parenthesizations corresponding to $S(i,j)$ in $G$. 
     For $i < j$, let $K_G(i,j)$ be the set of indexes of rigid pairs outgoing from $S(i,j)$ in $G$, then
-    \[P_G(i,j) = \bigcup_{k \in K_G(i,j)} \{(p_1 \times p_2) \; : \; p_1 \in P_G(i,k), \; P_G(k+1, )\} \]    
-    
+    \begin{equation}
+        P_G(i,j) = \bigcup_{k \in K_G(i,j)} 
+        \{(p_1 \times p_2) \; : \; p_1 \in P_G(i,k), \; P_G(k+1, )\} 
+        \label{eq1}
+    \end{equation}
+    Let us consider the matrix chain $A$ = $A_1 \times A_2 \times A_3 \times A_4$. We denote the problem of 
+    finding the parenthesizations of $A_1 \times \dots \times A_4$ as $S(1,4)$. The corresponding DAG for this 
+    problem can be seen in Figure~\ref{dag}. For $i<j$ we can find the set of indexes $K_G(i,j)$, 
+    \begin{equation*}
+        \begin{split}
+            K_G(1,4) & = \{1,2,3\} \\
+            K_G(1,3) & = \{1,2\} \\
+            K_G(2,4) & = \{2,3\} \\
+            K_G(1,2) & = \{1\} \\
+            K_G(2,3) & = \{2\} \\
+            K_G(3,4) & = \{3\}\\
+        \end{split}
+    \end{equation*}
 
-    \begin{figure}[h]
+    These sets can then be used to find all possible parenthesizations $P_G(i,j)$ for 
+    all subproblems $S(i,j)$ using \ref{eq1}. When $i = j$, we know that $P_G(i,j) = \{A_i\}$ trivially.
+    Therefore, 
+    \begin{equation*}
+        \begin{split}
+            P_G(1,1) & = \{A_1\} \\
+            P_G(2,2) & = \{A_2\} \\
+            P_G(3,3) & = \{A_3\} \\
+            P_G(4,4) & = \{A_4\} \\
+        \end{split}
+    \end{equation*}
+    
+    \begin{figure}[ht!]
         \centering 
         \begin{tikzpicture}[
             -{Latex}, % arrow head style
@@ -124,14 +149,45 @@ Acyclic Graph}
             \path[->] (15) edge node[fill=white,
             anchor=center, pos=0.5] {2} (23);
             \path[->] (16) edge node[fill=white,
-            anchor=center, pos=0.5] {2} (24);
+            anchor=center, pos=0.5] {3} (24);
             \path[->] (16) edge node[fill=white,
-            anchor=center, pos=0.5] {2} (25);
+            anchor=center, pos=0.5] {3} (25);
             % \path[->] (3) edge node[fill=white,
             % anchor=center, pos=0.5] {1} (8);
         \end{tikzpicture}
+        \caption{DAG for the matrix chain $A_1 \times \dots \times A_4$.}
+        \label{dag}
     \end{figure}
     
+    We now use \ref{eq1} to find the parenthesizations for the other subproblems and then use 
+    those to find the parenthesizations for $S(1,4)$, the parenthesizations $P_G(1,4)$ can be found using:
+    \[P_G(1,4) = \{(P_G(1,1) \times P_G(2,4))\} \cup \{(P_G(1,2) \times P_G(3,4))\} \cup \{(P_G(1,3) \times P_G(4.4))\}\]
+    Similarly, we can find parenthesizations for the subproblems. We first look at the simpler problems where 
+    $i = j-1$, in this case $\lvert K_G(i,j) \rvert = 1$,
+    \begin{equation*}
+        \begin{split}
+            P_G(1,2) = \{P_G(1,1) \times P_G(2,2)\} = \{(A_1 \times A_2)\} \\ 
+            P_G(2,3) = \{P_G(2,2) \times P_G(3,3)\} = \{(A_2 \times A_3)\}\\
+            P_G(3,4) = \{P_G(3,3) \times P_G(4,4)\} = \{(A_3 \times A_4)\}
+        \end{split}
+    \end{equation*}
+    
+    Next, we take a look at the more complicated cases where $\lvert K_G(i,j) \rvert = 2$,
+    \begin{equation*}
+        \begin{split}
+            P_G(1,3) & = \{(P_G(1,1) \times P_G(2,3))\} \cup \{(P_G(1,2) \times P_G(3,3))\} \\
+            & = \{(A_1 \times (A_2 \times A_3)), ((A_1 \times A_2) \times A_3)\} \\
+            P_G(2,4) & = \{(P_G(2,2) \times P_G(3,4))\} \cup \{(P_G(2,3) \times P_G(4,4))\} \\
+            & = \{(A_2 \times (A_3 \times A_4)), ((A_2 \times A_3) \times A_4)\}
+        \end{split}
+    \end{equation*} 
+
+    We can now use these results to find $P_G(1,4)$,
+    \begin{multline*}
+        P_G(1,4) = \{(A_1 \times (A_2 \times (A_3 \times A_4))), (A_1 \times ((A_2 \times A_3) \times A_4)), 
+         \\((A_1 \times A_2) \times (A_3 \times A_4)), ((A_1 \times (A_2 \times A_3)) \times A_4),
+         (((A_1 \times A_2) \times A_3) \times A_4)\}
+    \end{multline*}
     % \begin{example}
     %     Let us consider the matrix chain $A_1 \times A_2 \times A_3 \times A_4$. 
     % \end{example}
