@@ -49,9 +49,16 @@ class subproblem{
             this->subprob2->printsubprob();
         }
 
-        
     }
-
+    friend bool operator==(subproblem& m1, subproblem& m2);
 
 
 };
+
+bool operator==(subproblem& m1, subproblem& m2) {
+    if ((m1.get_i() == m2.get_i()) && (m1.get_j() == m2.get_j())){
+        return true;
+    }
+    return false;
+
+}   
