@@ -13,11 +13,12 @@
     - [x] overload ostream and equality 
     - [x] assignment operator
 
-- Create DAG 
-
-- Create a class for problem - DONE
-- Fix Overload == for subproblem
-- Add subproblem to DAG;gi
+- 'subproblem.hpp'
+    - [x] Recursively generates all subproblems
+    - [x] Stores all subproblem
+    - [x] = Operator overloaded to check equality between two subproblems
+    
+- Create DAG that stores all subproblems when generated.
 
 - Read procedure of optimization, make notes, discuss 
     - [ ] create a latex file showing dag and its representation of 
