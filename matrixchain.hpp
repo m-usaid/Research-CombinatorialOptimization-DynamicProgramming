@@ -1,41 +1,55 @@
 #include "matrix.hpp"
 #include <vector>
-#include <stdio.h>
-#include <stdlib.h>
-#include<time.h>
-
 
 class MatrixChain {
     public:
     std::vector<Matrix> chain;
     int size;
 
-    MatrixChain() {
-        size = chain.size();
-    }
-
-    MatrixChain(std::vector<Matrix> m_chain){
-        chain = m_chain;
-        size = chain.size();
-    }
-
-    MatrixChain(const MatrixChain& m_chain){
-        chain = m_chain.chain;
-        size = chain.size();
-    }
+    MatrixChain();
+    MatrixChain(std::vector<Matrix>);
+    MatrixChain(const MatrixChain&);
 
     // operator overloading
-    friend std::ostream& operator<<(
-        std::ostream& os, const MatrixChain& m_chain
-        );    
-
-    friend bool operator==(MatrixChain& chain1, MatrixChain& chain2);
-
-    MatrixChain operator=(const MatrixChain& m_chain) {
-        this->chain = m_chain.chain;
-        this->size = this->chain.size();
-    }
+    friend std::ostream& operator<<(std::ostream& os, const MatrixChain& m_chain);    
+    bool operator==(const MatrixChain&);
+    bool operator!=(const MatrixChain&);
+    MatrixChain& operator=(const MatrixChain&);
 };
+
+
+MatrixChain::MatrixChain() {
+    size = chain.size();
+}
+
+MatrixChain::MatrixChain(std::vector<Matrix> m_chain) {
+    chain = m_chain;
+    size = chain.size();
+}
+
+MatrixChain::MatrixChain(const MatrixChain& m_chain) {
+    chain = m_chain.chain;
+    size = chain.size();
+}
+
+bool MatrixChain::operator==(const MatrixChain& other) {
+    if (this->chain == other.chain && this->size == other.size) {
+        return true;
+    }
+    return false;
+}
+
+bool MatrixChain::operator!=(const MatrixChain& other) {
+    return !(*this == other);
+}
+
+MatrixChain& MatrixChain::operator=(const MatrixChain& other) {
+    if (this != &other) {
+        this->chain = other.chain;
+        this->size = other.size;
+    }
+    return *this;
+}
 
 std::ostream& operator<<(std::ostream& os, const MatrixChain& m_chain) {
     os << "{";
@@ -49,14 +63,7 @@ std::ostream& operator<<(std::ostream& os, const MatrixChain& m_chain) {
         return os;
 }
 
-bool operator==(MatrixChain& chain1, MatrixChain& chain2) {
-    if (chain1.chain == chain2.chain) {
-        return true;
-    }
-    return false;
-}
-
-
+// generate random matrix chain
 MatrixChain Generate(int n){
         srand(time(0));
         std::vector<Matrix> lst;

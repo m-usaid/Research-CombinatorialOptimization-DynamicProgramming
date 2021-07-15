@@ -6,8 +6,8 @@
 
 #include "Double_hash_table.h"
 #include <limits>
+#include <math.h>
 #include <iostream>
-
 class Directed_acyclic_graph {
 	private:
 		bool resetPriority; // Keeps a flag to whether any priority value has been changed
@@ -114,10 +114,10 @@ Directed_acyclic_graph::~Directed_acyclic_graph() {
 int Directed_acyclic_graph::in_degree(int i) const {
 	// Checks if the vertex value is within bounds
 	if(i > vertices - 1) {
-		throw illegal_argument();
+		// throw illegal_argument();
 	}
 	if(i < 0) {
-		throw illegal_argument();
+		// throw illegal_argument();
 	}
 	return dag[vIn + i];
 }
@@ -126,10 +126,10 @@ int Directed_acyclic_graph::in_degree(int i) const {
 int Directed_acyclic_graph::out_degree(int i) const {
 	// Checks if the vertex value is within bounds
 	if(i > vertices - 1) {
-		throw illegal_argument();
+		// throw illegal_argument();
 	}
 	if(i < 0) {
-		throw illegal_argument();
+		// throw illegal_argument();
 	}
 	return dag[vOut + i];
 }
@@ -145,10 +145,10 @@ int Directed_acyclic_graph::edge_count() const {
 // vertex, returns false. 
 bool Directed_acyclic_graph::adjacent(int i, int j) const {
 	if(i > (vertices - 1) || j > (vertices - 1)) { // Checks bounds
-		throw illegal_argument();
+		// throw illegal_argument();
 	}
 	if(i < 0 || j < 0) { // Checks bounds
-		throw illegal_argument();
+		// throw illegal_argument();
 	}
 	if(dag[vertices*i + j] == 1) { 
 		return true;
@@ -289,10 +289,10 @@ void Directed_acyclic_graph::insertQueue(int i, int start, int end) const{
 bool Directed_acyclic_graph::set_priority(int i, double p) {
 	// Checks if the vertex value is within bounds
 	if(i > vertices - 1) {
-		throw illegal_argument();
+		// throw illegal_argument();
 	}
 	if(i < 0) {
-		throw illegal_argument();
+		// throw illegal_argument();
 	}
 	
 	if(hashTable->member(p)) { // Check if priority is already being used.
