@@ -6,6 +6,7 @@ class MatrixChain {
     std::vector<Matrix> chain;
     int size;
 
+    // constructors 
     MatrixChain();
     MatrixChain(std::vector<Matrix>);
     MatrixChain(const MatrixChain&);
