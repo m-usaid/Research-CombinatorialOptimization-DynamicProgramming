@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <matrix.hpp>
+#include "subproblem.hpp"
 
 struct Edge {
     Matrix start, end; 
@@ -43,9 +43,9 @@ DAG::DAG(std::vector<Edge> const &edges, int N){
     adj_lst.resize(N);
     size = N;
     edge_count = edges.size();
-    for (auto &edge: edges){
-        adj_lst[edge.start].push_back(edge.end);
-    }
+    // for (auto &edge: edges){
+    //     adj_lst[edge.start].push_back(edge.end);
+    // }
 }
 
 void DAG::print() {

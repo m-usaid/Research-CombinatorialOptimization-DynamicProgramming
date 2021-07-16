@@ -13,7 +13,7 @@ class MatrixChain {
 
     // operator overloading
     friend std::ostream& operator<<(std::ostream& os, const MatrixChain& m_chain);    
-    bool operator==(const MatrixChain&);
+    bool operator==(const MatrixChain&) const;
     bool operator!=(const MatrixChain&);
     MatrixChain& operator=(const MatrixChain&);
 };
@@ -33,12 +33,19 @@ MatrixChain::MatrixChain(const MatrixChain& m_chain) {
     size = chain.size();
 }
 
-bool MatrixChain::operator==(const MatrixChain& other) {
+bool MatrixChain::operator==(const MatrixChain& other) const {
     if (this->chain == other.chain && this->size == other.size) {
         return true;
     }
     return false;
 }
+
+// bool operator==(const MatrixChain& mat1, const MatrixChain& mat2) {
+//     if ((mat1.chain == mat2.chain) && (mat1.size == mat2.size)) {
+//         return true;
+//     }
+//     return false;
+// }
 
 bool MatrixChain::operator!=(const MatrixChain& other) {
     return !(*this == other);
@@ -65,12 +72,12 @@ std::ostream& operator<<(std::ostream& os, const MatrixChain& m_chain) {
 }
 
 // generate random matrix chain
-MatrixChain Generate(int n){
+MatrixChain generate_chain(int n){
         srand(time(0));
         std::vector<Matrix> lst;
-        lst.push_back(Matrix(rand(), rand()));
+        lst.push_back(Matrix((rand()%100) + 1, (rand()%100) +1));
         for (int i = 0; i< n-1; i++){
-            lst.push_back(Matrix(lst.back().columns, rand()));
+            lst.push_back(Matrix(lst.back().columns, rand()%100 + 1));
         }
         return MatrixChain(lst);
     }

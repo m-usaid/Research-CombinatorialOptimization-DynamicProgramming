@@ -2,45 +2,49 @@
 #include "matrixchain.hpp"
 
 // TODO:    -- Create subchains by indexing from chain  
+//          -- fix subproblem generation --> generate rigid pairs
 //          -- discuss implementation of DAG and solving methods 
 
 class subproblem{
     int sub_size;
     std::vector<subproblem> subproblist;
     MatrixChain subchain; 
+    MatrixChain mainChain;
 
     public:
     int i, j;
 
-    subproblem(int, int);
-
+    subproblem(int, int, const MatrixChain&);
     subproblem(const subproblem&);
 
-    void create_subchain(const MatrixChain&);
+    void create_subchain();
     void generate_subproblems();
     void print_subproblems();
 
     // operator overloading
-    bool operator==(const subproblem&);
+    bool operator==(const subproblem&) const;
     subproblem& operator=(const subproblem&);
     friend std::ostream& operator<<(std::ostream& os, const subproblem& sub_prob);    
 };
 
 
 
-subproblem::subproblem(int i, int j) {
+subproblem::subproblem(int i, int j, const MatrixChain& m) {
     this->i = i;
     this->j = j;
     sub_size = j - i + 1;
+    mainChain = m;
     generate_subproblems();
+    create_subchain();
 }
 
 subproblem::subproblem(const subproblem& sub1) {
     i = sub1.i;
     j = sub1.j;
     sub_size = sub1.sub_size;
+    mainChain = sub1.mainChain;
     generate_subproblems();
-    // generate subproblems 
+    create_subchain();
     // create subchain and assign 
 }
 
@@ -49,7 +53,7 @@ void subproblem::generate_subproblems() {
         for (int l=k; l<=this->j; l++) {
             if ((k == this->i) && (l == this->j)) {} 
             else {
-            subproblist.push_back(subproblem(k, l));
+            subproblist.push_back(subproblem(k, l, mainChain));
             }
         }
     }
@@ -75,7 +79,7 @@ subproblem& subproblem::operator=(const subproblem& sub) {
     return *this;
 }
 
-bool subproblem::operator==(const subproblem& other) {
+bool subproblem::operator==(const subproblem& other) const {
     // might have to update later
     if (this->i == other.i && this->j == other.j) {
         return true;
@@ -89,9 +93,10 @@ std::ostream& operator<<(std::ostream& os, const subproblem& sub_prob){
 }
 
 
-// bool operator==(const subproblem& subprob1, const subproblem& subprob2) {
-//     if ((subprob1.i == subprob2.i) && (subprob1.j == subprob2.j)){
-//         return true;
-//     }
-//     return false;
-// }   
+void subproblem::create_subchain() {
+    for (int k=this->i; k<=this->j; k++){
+        // std::cout << m_chain.chain[k-1] << '\n';
+        subchain.chain.push_back(mainChain.chain[k-1]);
+    }
+    // std::cout << subchain.chain;
+}

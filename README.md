@@ -13,15 +13,14 @@
     - [x] overload ostream and equality 
     - [x] assignment operator
 
-- 'subproblem.hpp'
+- `subproblem.hpp`
     - [x] Recursively generates all subproblems
     - [x] Stores all subproblem
     - [x] = Operator overloaded to check equality between two subproblems
-    
-- Create DAG that stores all subproblems when generated.
+    - [ ] Generate rigid pairs using method called inside constructor 
+
+- Figure out what the fuck to do about DAG
 
 - Read procedure of optimization, make notes, discuss 
-    - [ ] create a latex file showing dag and its representation of 
+    - [x] create a latex file showing dag and its representation of 
         paranthesizations (usaid)
-
-- Go over implementation of DP solution to MCM 

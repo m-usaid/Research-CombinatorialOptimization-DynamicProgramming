@@ -1,5 +1,4 @@
 #include <iostream>
-
 class Matrix {    
     public:
     int rows;
@@ -15,7 +14,7 @@ class Matrix {
     Matrix mat_mul(Matrix); // multiply two matrices
     
     // operator overloading 
-    bool operator==(const Matrix&);
+    bool operator==(const Matrix&) const;
     bool operator!=(const Matrix&);
     Matrix& operator=(const Matrix&);
     friend std::ostream& operator<<(std::ostream& os, const Matrix& M);
@@ -54,8 +53,8 @@ Matrix& Matrix::operator=(const Matrix& m) {
        return *this;
 }
 
-bool Matrix::operator==(const Matrix& other) {
-    if ((this->rows == other.rows) && (this->columns == other.columns)) {
+bool Matrix::operator==(const Matrix& other) const {
+    if ((rows == other.rows) && (columns == other.columns)) {
         return true;
     }
     return false;
