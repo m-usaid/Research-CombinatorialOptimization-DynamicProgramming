@@ -7,18 +7,20 @@
 
 class subproblem{
     int sub_size;
-    std::vector<subproblem> subproblist;
-    MatrixChain subchain; 
+    std::vector<subproblem> subproblist; // change to rigid pairs 
     MatrixChain mainChain;
+    MatrixChain subchain; 
 
     public:
     int i, j;
 
+    subproblem();
     subproblem(int, int, const MatrixChain&);
     subproblem(const subproblem&);
-
     void create_subchain();
     void generate_subproblems();
+    void print_self();
+    void print_next_layer();
     void print_subproblems();
 
     // operator overloading
@@ -27,7 +29,9 @@ class subproblem{
     friend std::ostream& operator<<(std::ostream& os, const subproblem& sub_prob);    
 };
 
+subproblem::subproblem() {
 
+}
 
 subproblem::subproblem(int i, int j, const MatrixChain& m) {
     this->i = i;
@@ -45,26 +49,39 @@ subproblem::subproblem(const subproblem& sub1) {
     mainChain = sub1.mainChain;
     generate_subproblems();
     create_subchain();
-    // create subchain and assign 
 }
 
+
+// fix this -> rigid pairs 
 void subproblem::generate_subproblems() {
-    for (int k=this->i; k <= this->j; k++) {
-        for (int l=k; l<=this->j; l++) {
-            if ((k == this->i) && (l == this->j)) {} 
-            else {
-            subproblist.push_back(subproblem(k, l, mainChain));
-            }
+    for (int k=this->i; k < this->j; k++) {
+        subproblist.push_back(subproblem(i, k, mainChain));
+        subproblist.push_back(subproblem(k+1, j, mainChain));
+        }
+}
+
+// look at this later 
+// issue: not printing recursively 
+void subproblem::print_subproblems() {
+    // this->print_next_layer();
+    this->print_self();
+    for (auto &subprob: subproblist) {
+        if (subprob.i != subprob.j) {
+        subprob.print_next_layer();
         }
     }
 }
 
-void subproblem::print_subproblems() {
+void subproblem::print_next_layer() {
     std::cout << "Subproblems: [\n"; 
     for (auto &subprob: subproblist) {
         std::cout << subprob << '\n';
     }
     std::cout << "]\n";
+}
+
+void subproblem::print_self(){
+    std::cout << "(" << this->i << ", " << this->j << ")\n"; 
 }
 
 subproblem& subproblem::operator=(const subproblem& sub) {
@@ -95,8 +112,6 @@ std::ostream& operator<<(std::ostream& os, const subproblem& sub_prob){
 
 void subproblem::create_subchain() {
     for (int k=this->i; k<=this->j; k++){
-        // std::cout << m_chain.chain[k-1] << '\n';
         subchain.chain.push_back(mainChain.chain[k-1]);
     }
-    // std::cout << subchain.chain;
 }
