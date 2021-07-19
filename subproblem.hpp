@@ -72,6 +72,8 @@ void subproblem::print_subproblems() {
     }
 }
 
+
+// prints immediate subproblems called by current subproblem 
 void subproblem::print_next_layer() {
     std::cout << "Subproblems: [\n"; 
     for (auto &subprob: subproblist) {

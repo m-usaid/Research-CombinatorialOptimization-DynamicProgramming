@@ -2,18 +2,20 @@
 #include "subproblem.hpp"
 
 class Node {
-    subproblem subprob;
-    int cost;
 
     public: 
-
+    subproblem subprob;
+    int cost;
     Node() {}
     Node(const subproblem& s){
         this->subprob = s;
         this->cost = 0;
     };
     ~Node();
-   
+
+    bool operator==(const Node& other) const {
+        return (subprob == other.subprob);
+    }
 };
 
 class Edge {
@@ -29,55 +31,57 @@ class Edge {
     }
 };
 
-class DAG{
-    int size;
-    int edge_count;
-    std::vector<Node> nodes;
-    std::vector<Edge> edges;
 
-    std::vector<std::vector<Node>> adj_lst;
 
-    public:
+// class DAG{
+//     int size;
+//     int edge_count;
+//     std::vector<Node> nodes;
+//     std::vector<Edge> edges;
+
+//     std::vector<std::vector<Node>> adj_lst;
+
+//     public:
     
-    DAG();
-    DAG(const std::vector<Node>& nodes, const std::vector<Edge>& edges);
-    DAG(const DAG&);
-    ~DAG();
+//     DAG();
+//     DAG(const std::vector<Node>& nodes, const std::vector<Edge>& edges);
+//     DAG(const DAG&);
+//     ~DAG();
 
-    void construct_adjlist();
-    void print();
-};
+//     void construct_adjlist();
+//     void print();
+// };
 
-// void print_graph(DAG const &graph, int N) {
-//     for (int i=0; i<N; i++) {
-//         std::cout << i << "--->";
-//         for (Matrix v: graph.adj_lst[i]) {
-//             std::cout << v << " ";
-//         }
-//         std::cout << '\n';
-//     }
+// // void print_graph(DAG const &graph, int N) {
+// //     for (int i=0; i<N; i++) {
+// //         std::cout << i << "--->";
+// //         for (Matrix v: graph.adj_lst[i]) {
+// //             std::cout << v << " ";
+// //         }
+// //         std::cout << '\n';
+// //     }
+// // }
+
+
+// DAG::DAG() {
+//     size = 0;
+//     edge_count = 0;
 // }
 
+// DAG::DAG(const std::vector<Node>& nodes, const std::vector<Edge>& edges){
+//     this->nodes = nodes;
+//     this->edges = edges;
+//     this->edge_count = this->edges.size();
+//     this->size = this->nodes.size();
 
-DAG::DAG() {
-    size = 0;
-    edge_count = 0;
-}
+// }
 
-DAG::DAG(const std::vector<Node>& nodes, const std::vector<Edge>& edges){
-    this->nodes = nodes;
-    this->edges = edges;
-    this->edge_count = this->edges.size();
-    this->size = this->nodes.size();
-
-}
-
-void DAG::construct_adjlist(){
+// void DAG::construct_adjlist(){
     
-}
+// }
 
-void DAG::print(){
-    for (int i = 0; i < this->size; i++){
-        print()
-    }
-}
+// void DAG::print(){
+//     for (int i = 0; i < this->size; i++){
+//         print()
+//     }
+// }
