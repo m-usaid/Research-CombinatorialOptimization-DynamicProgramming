@@ -12,6 +12,16 @@ namespace std{
     };
 }
 
+// namespace std{
+//     template <>
+//     struct hash<subproblem>
+//     {
+//         size_t operator() (const subproblem& subprob) const {
+//             return ((hash<int>() (subprob.i) ^ hash<int>() (subprob.j) << 1) << 1);
+//         }
+//     };
+// }
+
 int main() {    
     MatrixChain m1 = generate_chain(5);
     subproblem sub1 = subproblem(1, 5, m1);
