@@ -11,11 +11,18 @@ class Node {
         this->subprob = s;
         this->cost = 0;
     };
-    ~Node();
+    Node (const Node& other) {
+        subprob = other.subprob;
+        cost = other.cost;
+    }
+    ~Node() {}
+
 
     bool operator==(const Node& other) const {
         return (subprob == other.subprob);
     }
+
+    friend std::ostream& operator<<(std::ostream& os, const Node& node);
 };
 
 class Edge {
@@ -31,6 +38,10 @@ class Edge {
     }
 };
 
+std::ostream& operator<<(std::ostream& os, const Node& node) {
+    os << "S(" << node.subprob.i << ", " << node.subprob.j << ")";
+    return os;
+}
 
 
 // class DAG{
