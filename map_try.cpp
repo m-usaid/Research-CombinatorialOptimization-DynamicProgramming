@@ -31,7 +31,9 @@ int main() {
     // // m.insert({{sub1, 5}});
     DAG m_dag; 
     m_dag.create_edges(sub1);
-    m_dag.print_edges();
+    // m_dag.print_edges();
+    m_dag.create_adjlist();
+    m_dag.print_adjlist();
     // Node node1 = Node(sub1);
     // Node node2 = Node(sub2);
     // Node node3 = Node(sub3);

@@ -25,10 +25,10 @@ class Node {
 };
 
 class Edge {
-    Node start, end; 
     int rigid_index;
 
     public:
+    Node start, end; 
     Edge() {}
     Edge(const Node& a, const Node& b) {
         start = a;
@@ -69,7 +69,7 @@ class DAG{
     int edge_count;
     std::vector<Edge> edgelst;
     // std::unordered_map<Node, std::vector<Node>> adj_lst;
-    std::unordered_map<Node, int> adj_lst;
+    std::unordered_map<Node, std::vector<Node>> adj_lst;
 
     public:
     DAG();
@@ -83,6 +83,29 @@ class DAG{
             std::cout << x;
         }
         std::cout << "}\n";
+    }
+
+    void create_adjlist() {
+        for (auto &edge: edgelst) {
+            if (adj_lst.find(edge.start) == adj_lst.end()) {
+                std::vector<Node> nbrs = {edge.end};
+                adj_lst.insert({edge.start, nbrs});
+            }
+            else {
+                adj_lst[edge.start].push_back(edge.end);
+            }
+        }
+    }
+
+    void print_adjlist() {
+        std::cout << "Adjacency list of the DAG:\n";
+        for (auto &x: adj_lst) {
+            std::cout << x.first << " ---> ";
+            for (auto &y: adj_lst[x.first]) {
+                std::cout << y << " ";
+            }
+            std::cout << '\n';
+        }
     }
     // void add_nodes(subproblem&);
     friend std::ostream& operator<<(std::ostream& os, const DAG& dag);
