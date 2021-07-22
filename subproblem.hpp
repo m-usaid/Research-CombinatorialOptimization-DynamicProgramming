@@ -7,11 +7,11 @@
 
 class subproblem{
     int sub_size;
-    std::vector<subproblem> subproblist; // change to rigid pairs 
     MatrixChain mainChain;
     MatrixChain subchain; 
 
     public:
+    std::vector<subproblem> subproblist; // change to rigid pairs 
     int i, j;
 
     subproblem();
@@ -22,6 +22,8 @@ class subproblem{
     void print_self();
     void print_next_layer();
     void print_subproblems();
+    std::vector<subproblem> get_all_subprob();
+    std::vector<subproblem> get_next_layer();
 
     // operator overloading
     bool operator==(const subproblem&) const;
@@ -72,6 +74,8 @@ void subproblem::print_subproblems() {
     }
 }
 
+
+// prints immediate subproblems called by current subproblem 
 void subproblem::print_next_layer() {
     std::cout << "Subproblems: [\n"; 
     for (auto &subprob: subproblist) {
@@ -82,6 +86,16 @@ void subproblem::print_next_layer() {
 
 void subproblem::print_self(){
     std::cout << "(" << this->i << ", " << this->j << ")\n"; 
+}
+
+std::vector<subproblem> subproblem::get_all_subprob() {
+    std::vector<subproblem> all_probs;
+    for (int x=this->i; x <= this->j; x++) {
+        for (int y=x; y<this->j; y++) {
+            all_probs.push_back(subproblem(x, y, this->mainChain));
+        }
+    }
+    return all_probs;
 }
 
 subproblem& subproblem::operator=(const subproblem& sub) {
@@ -105,7 +119,7 @@ bool subproblem::operator==(const subproblem& other) const {
 }
 
 std::ostream& operator<<(std::ostream& os, const subproblem& sub_prob){
-    os << "(" << sub_prob.i << ", " << sub_prob.j << ")"; 
+    os << "S(" << sub_prob.i << ", " << sub_prob.j << ")"; 
     return os;
 }
 
