@@ -23,8 +23,9 @@
 // }
 
 int main() {    
-    MatrixChain m1 = generate_chain(5);
-    subproblem sub1 = subproblem(1, 5, m1);
+    int n = 4;
+    MatrixChain m1 = generate_chain(n);
+    subproblem sub1 = subproblem(1, n, m1);
     // subproblem sub2 = subproblem(1, 2, m1);
     // subproblem sub3 = subproblem(1, 3, m1);
     // subproblem sub4 = subproblem(1, 4, m1);

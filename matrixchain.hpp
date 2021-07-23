@@ -1,5 +1,6 @@
 #include "matrix.hpp"
 #include <vector>
+#include <time.h>
 
 class MatrixChain {
     public:
