@@ -65,13 +65,6 @@ void subproblem::generate_subproblems() {
     }
 }
 
-// look at this later 
-// issue: not printing recursively 
-// void subproblem::print_subproblems() {
-//     for (auto &subprob: this->get_all_subprob()) {
-//         std::cout << subprob << std::endl;
-//         }
-// }
 
 
 // prints immediate subproblems called by current subproblem 
@@ -89,37 +82,28 @@ void subproblem::print_subproblems() {
         if (subprob.i != subprob.j) {
         subprob.print_next_layer(subprob);
         }
+        
     }
 }
 
 
 void subproblem::print_self(){
-    std::cout << "S(" << this->i << ", " << this->j << ")"; 
+    std::cout << "S(" << this->i << ", " << this->j << ")\n"; 
 }
 
 std::vector<subproblem> subproblem::get_all_subprob() {
     std::vector<subproblem> all_probs;
-    // for (int x=this->i; x <= this->j; x++) {
-    //     for (int y=x; y<this->j; y++) {
-    //         all_probs.push_back(subproblem(x, y, this->mainChain));
-    //     }
-    // }
-    // for (auto &subprob: all_probs) {
-    //     std::cout << subprob << '\n';
-    // }
     all_probs.push_back(subproblem(this->i, this->j, this->mainChain));
     for (auto &subprob: subproblist) {
-        // if (subprob.i != subprob.j) {
-            for (auto &subprob: subprob.subproblist) {
+            if (subprob.i != subprob.j) {
                 all_probs.push_back(subprob);
             }
-            
-        // }
-    }
+            else
+                for(auto &subprob2: subprob.get_all_subprob()){
+                        all_probs.push_back(subprob2);
 
-    // for (auto &subprob: all_probs) {
-    //     std::cout << subprob << '\n';
-    // }
+            }
+    }
     return all_probs;
 }
 
