@@ -1,7 +1,8 @@
 #include "dag.hpp"
 #include <unordered_map> 
-
-
+#include <chrono>
+using namespace std;
+using namespace std::chrono;
 // namespace std{
 //     template <>
 //     struct hash<Node>
@@ -22,39 +23,40 @@
 //     };
 // }
 
-int main() {    
-    int n = 4;
+void DAGtest(int n){
     MatrixChain m1 = generate_chain(n);
     subproblem sub1 = subproblem(1, n, m1);
-    // subproblem sub2 = subproblem(1, 2, m1);
-    // subproblem sub3 = subproblem(1, 3, m1);
-    // subproblem sub4 = subproblem(1, 4, m1);
-    // // m.insert({{sub1, 5}});
     DAG m_dag; 
     m_dag.create_edges(sub1);
-    // m_dag.print_edges();
     m_dag.create_adjlist();
     m_dag.print_adjlist();
-    // Node node1 = Node(sub1);
-    // Node node2 = Node(sub2);
-    // Node node3 = Node(sub3);
-    // Node node4 = Node(sub4);
-    // std::vector<Node> nbrs = {node2, node3, node4};
-    // std::unordered_map<Node, std::vector<Node>> m;
-    // m.insert({node1, nbrs});
-    // std::vector<Node> nbrs2 = {node1, node3, node4};
-    // m.insert({node2, nbrs2});
-    // for (auto &x: m) {
-    //     std::cout << x.first << ": {";
-    //     for (auto &y: x.second) {
-    //         std::cout << y << " ";
-    //     }
-    //     std::cout << "}\n";
-    // }
-    // std::vector<Node> lst = m[node2];
-    // for (auto &i: lst) {
-    //     std::cout << i;
-    // }
-    
-    // return 0;
+}
+
+void test(){
+    int n = 1;
+    bool ok = true;
+    while(ok == true){
+        
+        auto start = high_resolution_clock::now();
+        DAGtest(n);
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+        
+        if (duration.count()/1000000 < 120) {
+        cout << "Time taken by function: "
+         << duration.count()/1000000 << " seconds" << endl;
+        n++;
+
+        }
+        else {
+            cout << "Time taken by function: "  
+            << duration.count()/1000000 << " seconds" << endl;
+            ok = false;
+        }
+    }
+}
+
+int main() {  
+    test();
+    return 0;
 }
